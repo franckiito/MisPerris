@@ -2,9 +2,18 @@ from django.db import models
 
 # Create your models here.
 
-class Persona(models.Model):
+class Postulante(models.Model):
+    run = models.CharField(max_length=100)
     nombre = models.CharField(max_length=100)
-    apellido = models.CharField(max_length=100)
-    edad = models.IntegerField()
+    fecha = models.DateField()
+    correo = models.EmailField(max_length=254)
+    telefono = models.IntegerField()
+    region = models.CharField(max_length=100)
+    comuna = models.CharField(max_length=100)
+    vivienda = models.CharField(max_length=100)
     def __str__(self):
-        return "nombre: " + self.nombre + " apellido: " + self.apellido
+        #return "run: " + self.run + " nombre: " + self.nombre + " fecha: " + self.fecha + " correo: " + self.correo
+        var = """
+            run: {} nombre: {} fecha: {} correo: {} 
+          """.format(self.run, self.nombre, self.fecha, self.correo)
+        return var

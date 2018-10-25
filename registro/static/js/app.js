@@ -1,3 +1,5 @@
+console.log("Hola Mundo")
+
 $.validator.addMethod("minDate", function(value, element) {
     var curDate = new Date("2000-12-31");
     var inputDate = new Date(value);
@@ -97,25 +99,6 @@ function validaFormulario(){
             tipoVivienda:{
                 required: "Debe seleccionar una tipo de vivienda del listado"
             }
-        },
-        submitHandler: function(form) {
-            $("#formulario").submit(function(){
-
-    
-                var postulante = $(this).serializeObject()
-                console.log(postulante)
-                arreglo.push(postulante)
-                $("#tabla").append('<tr> ' +
-                                            '<th scope="row">' + postulante.run + '</th> ' +
-                                            '<td>' + postulante.nombre + '</td> ' +
-                                            '<td>' + postulante.correo + '</td> ' +
-                                            '<td>' + postulante.telefono + '</td> ' +
-                                            '<td>' + postulante.region + '</td> ' +
-                                            '<td>' + postulante.comuna + '</td> ' +
-                                            '<td>' + postulante.tipoVivienda + '</td> ' +
-                                        '</tr>')
-                return false;
-            })
         }
     })
 }

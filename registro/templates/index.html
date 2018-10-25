@@ -18,13 +18,13 @@
         <!--Navbar-->
         <header>
             <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #85d4b7;">
-                    <a class="navbar-brand" href="#"><img src="{% static "img/logo.png" %}" class="d-block w-100 rounded mx-auto" alt="Logo"></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
+                <a class="navbar-brand" href="#"><img src="{% static "img/logo.png" %}" class="d-block w-100 rounded mx-auto" alt="Logo"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                   
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                      <ul class="navbar-nav mr-auto">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link btn btn-navbar" href="#">Inicio <span class="sr-only">(current)</span></a>
                         </li>
@@ -37,10 +37,15 @@
                         <li class="nav-item">
                             <a class="nav-link btn btn-navbar" href="#redesSociales">Contáctanos</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-navbar" href="#formulario" id="mostrar">Postular</a>
-                        </li>
-                      </ul>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">Bienvenido {{usuario}} <a href="{% url "cerrar_session" %}">Cerrar Sesión</a> </li>
+                            {% else %}
+                            <a class="nav-link btn btn-navbar" href="#" >Iniciar Sesión</a>
+                            <a class="nav-link btn btn-navbar" href="#formulario" id="mostrar">Registrarse</a>
+                        {% endif %}
+                    </form>
                 </div>
             </nav>
         </header>
@@ -148,7 +153,8 @@
         
         <!--Formulario-->
         <div class="container">
-            <form action="#" id="formulario" method="GET">
+            <form action="{% url 'crear' %}" id="formulario" method="POST">
+            {% csrf_token %}
             <h1>Registro de Postulante</h1>
             <div class="row">
                 <div class="col-md-4">
@@ -231,14 +237,16 @@
         <!--Fin Formulario-->
         
         <!--Mostrar Inscritos-->
-        <div class="container" id="datos">
+        <div class="container" >
             <h2>Postulantes</h2>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
+                            <th scope="col">Id</th>
                             <th scope="col">Run</th>
                             <th scope="col">Nombre</th>
+                            <th scope="col">Fecha</th>
                             <th scope="col">Correo</th>
                             <th scope="col">Telefono</th>
                             <th scope="col">Region</th>
@@ -246,7 +254,21 @@
                             <th scope="col">Tipo Vivienda</th>
                         </tr>
                     </thead>
-                    <tbody id="tabla">
+                    <tbody>
+                        {% for p in postulantes %}
+                        <tr>
+                            <th scope="row">{{p.id}}</th>
+                            <td>{{p.run}}</td>
+                            <td>{{p.nombre }}</td>
+                            <td>{{p.fecha}}</td>
+                            <td>{{p.correo}}</td>
+                            <td>{{p.telefono}}</td>
+                            <td>{{p.region}}</td>
+                            <td>{{p.comuna}}</td>
+                            <td>{{p.vivienda}}</td>
+                                
+                        </tr>
+                        {% endfor %}                  
                     </tbody>
                 </table>
             </div>
