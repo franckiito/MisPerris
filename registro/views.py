@@ -1,15 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Postulante
-
+from django.shortcuts import redirect
 # Create your views here.
+
+#importar user
+from django.contrib.auth.models import User
+#sistema de autenticación 
+from django.contrib.auth import authenticate,logout, login as auth_login
+
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     usuario = request.session.get('usuario',None)
-    return render(request,'index.html',{'nombre':"Franco",'elementos':["uno", "dos", "tres"],'postulantes':Postulante.objects.all()})
-
-def registro(request):
-    return render(request, 'formulario.html',{})
+    return render(request,'index.html',{'postulantes':Postulante.objects.all(),'usuario':usuario})
 
 def crear(request):
     run = request.POST.get('run','')
@@ -24,4 +28,25 @@ def crear(request):
     postulante = Postulante(run=run, nombre=nombre, fecha=fecha, correo=correo, telefono=telefono, region=region, comuna=comuna, vivienda=vivienda)
     postulante.save()
     
-    return render(request,'index.html')
+    return render(request,'index')
+
+def login(request):
+    return render(request,'login.html',{})
+
+def login_iniciar(request):
+    usuario = request.POST.get('nombre_usuario','')
+    contrasenia = request.POST.get('contrasenia','')
+    user = authenticate(request,username=usuario, password=contrasenia)
+
+    if user is not None:
+        auth_login(request, user)
+        request.session['usuario'] = user.first_name+" "+user.last_name
+        return redirect("index")
+    else:
+        return redirect("login")
+
+@login_required(login_url='login')
+def cerrar_session(request):
+    del request.session['usuario']
+    logout(request)
+    return redirect('index')

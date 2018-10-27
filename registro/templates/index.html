@@ -42,7 +42,7 @@
                         {% if user.is_authenticated %}
                             <li class="nav-item">Bienvenido {{usuario}} <a href="{% url "cerrar_session" %}">Cerrar Sesión</a> </li>
                             {% else %}
-                            <a class="nav-link btn btn-navbar" href="#" >Iniciar Sesión</a>
+                            <a class="nav-link btn btn-navbar" href="{% url "login"%}" >Iniciar Sesión</a>
                             <a class="nav-link btn btn-navbar" href="#formulario" id="mostrar">Registrarse</a>
                         {% endif %}
                     </form>
