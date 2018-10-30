@@ -25,26 +25,49 @@
                   
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-navbar" href="#">Inicio <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-navbar" href="#rescatados">Quienes Somos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-navbar" href="#servicios">Servicios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-navbar" href="#redesSociales">Contáctanos</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle btn-navbar" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Galeria</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#disponibles">Disponible</a>
-                                <a class="dropdown-item" href="#">Adoptado</a>
-                                <a class="dropdown-item" href="#">Rescatado</a>
-                            </div>
-                        <li>
+                        {% if usuario is not null %} 
+                            {% if request.user.is_superuser %}
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-navbar" href="#">Inicio <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-navbar" href="#formularioPerro">Mantenedor perros</a>
+                                </li>
+                                <li class="nav-item">
+                                   <a class="nav-link btn btn-navbar" href="#postulantess">Postulantes</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-navbar" href="#">Inicio <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-navbar" href="#disponibles">Disponible</a>
+                                </li>
+                            
+                            {% endif %}
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-navbar" href="#">Inicio <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-navbar" href="#rescatados">Quienes Somos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-navbar" href="#servicios">Servicios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-navbar" href="#redesSociales">Contáctanos</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle btn-navbar" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Galeria</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#disponibles">Disponible</a>
+                                    <a class="dropdown-item" href="#adoptados">Adoptado</a>
+                                    <a class="dropdown-item" href="#rescatados">Rescatado</a>
+                                </div>
+                            <li>
+                        {% endif %}
+                        
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
                         {% if usuario is not null %}  
@@ -247,8 +270,10 @@
         </div>
         <!--Formulario Postulante-->
 
+        {% if usuario is not null %} 
+            {% if request.user.is_superuser %}
         <!--Mostrar Inscritos-->
-        <div class="container" >
+        <div class="container" id="postulantess" >
             <h2>Postulantes</h2>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -295,8 +320,12 @@
                 </table>
             </div>
         </div>
+            {% endif %}
+        {% endif %}
         <!--Fin Mostrar Elementos-->
         
+        {% if usuario is not null %} 
+            {% if request.user.is_superuser %}
         <!--Formulario Perro-->
         <div class="container">
             <form action="{% url 'crear_perro' %}" id="formularioPerro" enctype="multipart/form-data" method="POST">
@@ -354,7 +383,7 @@
         <!--Fin Formulario Perro-->
 
         <!--Mostrar Perros-->
-        <div class="container" >
+        <div class="container" id="perritos" >
             <h2>Perros</h2>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -386,6 +415,8 @@
             </div>
         </div>
         <!--Fin Mostrar Perros-->
+            {% endif %}
+        {% endif %} 
 
         <!--Gallery Disponible-->
         <div class="container-fluid" style="background-color: rgb(133, 212, 183);" id="disponibles"> 
@@ -399,6 +430,7 @@
                                 <div class="overlay">
                                     <h2>{{p.nombre}}</h2>
                                     <p>{{p.descripcion}}</p>
+                                    <a class="info" href="#">Adoptar</a>
                                 </div>
                             </div>   
                         {% endif %} 

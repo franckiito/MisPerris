@@ -28,14 +28,14 @@ def crear(request):
     comuna = request.POST.get('comuna','')
     vivienda = request.POST.get('tipoVivienda','')
     contrasenia = request.POST.get('contrasenia','')
-
-    postulante = Postulante.objects.filter(run=run)
+    
+    postulante = Postulante.objects.get(run=run)
     if postulante is None:
         postulante = Postulante(run=run, nombre=nombre, fecha=fecha, correo=correo, telefono=telefono, region=region, comuna=comuna, vivienda=vivienda, contrasenia= contrasenia)
         postulante.save()
-        return render(request,'index',{'mensaje':'El postulante fue registrado correctamente.'})
+        return render(request,'index.html',{'mensaje':'El postulante fue registrado correctamente.'})
     else:
-        return render(request,'index',{'mensaje':'El postulante ingresado ya esta registrado.'})
+        return render(request,'index.html',{'mensaje':'El postulante ingresado ya esta registrado.'})
 
 
 def eliminar(request,id):
