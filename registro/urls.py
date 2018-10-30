@@ -5,10 +5,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('',views.index, name = "index"),
-    path('registro/crear', views.crear, name = "crear"),
-    path('registro/crear_perro', views.crear_perro, name = "crear_perro"),
-    path('registro/eliminar/<int:id>', views.eliminar, name = "eliminar"),
-    path('registro/eliminar_perro/<int:id>', views.eliminar_perro, name = "eliminar_perro"),
+    path('postulante/crear', views.crear, name = "crear"),
+    path('postulante/eliminar/<int:id>', views.eliminar, name = "eliminar"),
+    path('perro/crear', views.crear_perro, name = "crear_perro"),
+    path('perro/eliminar/<int:id>', views.eliminar_perro, name = "eliminar_perro"),
+    path('perro/editar/<int:id>', views.editar_perro, name = "editar_perro"),
+    path('perro/editado/<int:id>', views.editado_perro, name = "editado_perro"),
     path('login',views.login,name="login"),
     path('cerrarsession',views.cerrar_session,name="cerrar_session"),
     path('login/iniciar',views.login_iniciar,name="iniciar")

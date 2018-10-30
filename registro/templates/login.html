@@ -18,13 +18,13 @@
   </head>
 
   <body class="text-center">
-    <form method="POST" class="form-signin" action="{% url "iniciar" %}">
+    <form method="POST" class="form-signin" action="/login/iniciar">
         {% csrf_token %}
     <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
       <label for="inputEmail"  class="sr-only">Run</label>
-      <input type="text" id="inputEmail" name="run" class="form-control" placeholder="Run" required autofocus>
+      <input type="text" name="run" class="form-control" placeholder="Run" required autofocus>
       <label for="inputPassword" class="sr-only">Contraseña</label>
-      <input type="password" name="contrasenia" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+      <input type="password" name="contrasenia" class="form-control" placeholder="Contraseña" required>
       <div class="checkbox mb-3">
        
       </div>
