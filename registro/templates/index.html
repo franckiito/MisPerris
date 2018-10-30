@@ -37,10 +37,18 @@
                         <li class="nav-item">
                             <a class="nav-link btn btn-navbar" href="#redesSociales">Contáctanos</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle btn-navbar" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Galeria</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#disponibles">Disponible</a>
+                                <a class="dropdown-item" href="#">Adoptado</a>
+                                <a class="dropdown-item" href="#">Rescatado</a>
+                            </div>
+                        <li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
-                        {% if user.is_authenticated %}
-                            <li class="nav-item">Bienvenido {{usuario.nombre}} {{usuario.first_name}} {{usuario.last_name}} <a class="btn btn-danger" href="{% url "cerrar_session" %}">Cerrar Sesión</a> </li>
+                        {% if usuario is not null %}  
+                            <li class="nav-item">Bienvenido {{usuario}} <a class="btn btn-danger" href="{% url "cerrar_session" %}">Cerrar Sesión</a> </li>
                             {% else %}
                             <a class="btn btn-success" href="{% url "login"%}" >Iniciar Sesión</a>
                             <a class="btn btn-info" href="#formulario" id="mostrar">Registrarse</a>
@@ -235,6 +243,7 @@
                 </div>
             </div>
             </form>
+            <h6>{{mensaje}}</h6>
         </div>
         <!--Formulario Postulante-->
 
@@ -378,126 +387,74 @@
         </div>
         <!--Fin Mostrar Perros-->
 
-        <!--Gallery-->
-        <div class="container-fluid" style="background-color: rgb(133, 212, 183);" id="rescatados"> 
+        <!--Gallery Disponible-->
+        <div class="container-fluid" style="background-color: rgb(133, 212, 183);" id="disponibles"> 
             <div class="container">
+                <h1>Galeria perros disponibles</h1>
                 <div id="masonry">
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Chocolate_tn.jpg" %}" alt="Chocolate_tn" />
-                        <div class="overlay">
-                            <h2>Chocolate_tn</h2>
-                            <p>Perro muy tierno 3 años, con todas sus vacunas y documentos.</p>
-                            <!--<a class="info" href="#">Ver imagen</a>-->
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Bigotes.jpg" %}" alt="Bigotes" />
-                        <div class="overlay">
-                            <h2>Bigotes</h2>
-                            <p>2 años, muy amoroso y cariñoso, le encanta jugar.</p>
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Bigotes_tn.jpg" %}" alt="Bigotes_tn" />
-                        <div class="overlay">
-                            <h2>Bigotes_tn</h2>
-                            <p>Muy tierno le encanta jugar con peluches, pelota, todo lo que este
-                                a su alcance.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Chocolate.jpg" %}" alt="Chocolate" />
-                        <div class="overlay">
-                            <h2>Chocolate</h2>
-                            <p>Un poco mañoso y muy inquieto, le gusta pelear</p>
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Luna.jpg" %}" alt="Luna" />
-                        <div class="overlay">
-                            <h2>Luna</h2>
-                            <p>Muy tierna, es realmente un amor le encanta dormirse en las
-                                piernas de quien la sostenga.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Luna_tn.jpg" %}" alt="Luna_tn" />
-                        <div class="overlay">
-                            <h2>Luna_tn</h2>
-                            <p>Adorable perrita, muy juguetona y tranquila.</p>
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Maya.jpg" %}" alt="Maya" />
-                        <div class="overlay">
-                            <h2>Maya</h2>
-                            <p>Le gusta jugar mucho le encantan las pelotas y cosas para morder.</p>
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Maya_tn.jpg" %}" alt="Maya_tn" />
-                        <div class="overlay">
-                            <h2>Maya_tn</h2>
-                            <p>Perra muy inquieta, nunca deja dormir a nadie por que 
-                                siempre quiere estar jugando.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Oso.jpg" %}" alt="Oso" />
-                        <div class="overlay">
-                            <h2>Oso</h2>
-                            <p>Muy adorable, le encanta dormir y comer.</p>
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Oso_tn.jpg" %}" alt="Oso_tn" />
-                        <div class="overlay">
-                            <h2>Oso_tn</h2>
-                            <p>Perro muy tranquilo, bonito y muy jugueton.</p>
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Pexel.jpg" %}" alt="Pexel" />
-                        <div class="overlay">
-                            <h2>Pexel</h2>
-                            <p>Es un perro muy gruñon, inquieto y peleador.</p>
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Pexel_tn.jpg" %}" alt="Pexel_tn" />
-                        <div class="overlay">
-                            <h2>Pexel_tn</h2>
-                            <p>Es muy amoroso, le encanta comer carne y jugar.</p>
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Wifi.jpg" %}" alt="Wifi" />
-                        <div class="overlay">
-                            <h2>Wifi</h2>
-                            <p>Es muy lindo y le encanta salir a pasear al parque,
-                                es jugueton y muy tierno.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item hovereffect">
-                        <img src="{% static "img/rescatados/Wifi_tn.jpg" %}" alt="Wifi_tn" />
-                        <div class="overlay">
-                            <h2>Wifi_tn</h2>
-                            <p>Es muy buen amigo, con el puedes salir a trotar y te seguirá
-                                hasta donde vallas, es muy fiel.
-                            </p>
-                        </div>
-                    </div>
+                    {% for p in perros %}
+                        {% if p.estado == 'Disponible' %}
+                            <div class="item hovereffect">
+                                <img src="/media/{{p.foto}}" alt="{{p.nombre}}" />
+                                <div class="overlay">
+                                    <h2>{{p.nombre}}</h2>
+                                    <p>{{p.descripcion}}</p>
+                                </div>
+                            </div>   
+                        {% endif %} 
+                    {% endfor %}                 
+
                 </div>
             </div>
         </div>
-        <!--Fin Gallery-->
+        <!--Fin Gallery Disponible-->
+        <br>
+        <!--Gallery Adoptados-->
+        <div class="container-fluid" style="background-color: rgb(133, 212, 183);" id="adoptados"> 
+            <div class="container">
+                <h1>Galeria perros adoptados</h1>
+                <div id="masonry">
+                    {% for p in perros %}
+                        {% if p.estado == 'Adoptado' %}
+                            <div class="item hovereffect">
+                                <img src="/media/{{p.foto}}" alt="{{p.nombre}}" />
+                                <div class="overlay">
+                                    <h2>{{p.nombre}}</h2>
+                                    <p>{{p.descripcion}}</p>
+                                </div>
+                            </div>   
+                        {% endif %} 
+                    {% endfor %}                 
+    
+                </div>
+            </div>
+        </div>
+        <!--Fin Gallery Adoptados-->
+        <br>
+        <!--Gallery Rescatados-->
+        <div class="container-fluid" style="background-color: rgb(133, 212, 183);" id="rescatados"> 
+            <div class="container">
+                <h1>Galeria perros rescatados</h1>
+                <div id="masonry">
+                    {% for p in perros %}
+                        {% if p.estado == 'Rescatado' %}
+                            <div class="item hovereffect">
+                                <img src="/media/{{p.foto}}" alt="{{p.nombre}}" />
+                                <div class="overlay">
+                                    <h2>{{p.nombre}}</h2>
+                                    <p>{{p.descripcion}}</p>
+                                </div>
+                            </div>   
+                        {% endif %} 
+                    {% endfor %}                 
+                </div>
+            </div>
+        </div>
+        <!--Fin Gallery Rescatados-->
+
         <footer >
             <div class="container-fluid" style="background-color:#e6e6e6;">
-                <h1>Desarrollo web y mobile</h1>
+                <h6>Desarrollo web y mobile</h6>
             </div>
         </footer>
 

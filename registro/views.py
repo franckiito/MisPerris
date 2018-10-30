@@ -33,15 +33,32 @@ def crear(request):
     if postulante is None:
         postulante = Postulante(run=run, nombre=nombre, fecha=fecha, correo=correo, telefono=telefono, region=region, comuna=comuna, vivienda=vivienda, contrasenia= contrasenia)
         postulante.save()
-        return render(request,'index')
+        return render(request,'index',{'mensaje':'El postulante fue registrado correctamente.'})
     else:
-        return HttpResponse('El usuario ya existe')
+        return render(request,'index',{'mensaje':'El postulante ingresado ya esta registrado.'})
 
 
 def eliminar(request,id):
     postulante = Postulante.objects.get(pk = id)
     postulante.delete()
     return redirect('index')
+
+def recuperar(request):
+    return render(request, 'recuperar.html')
+
+def recuperado(request):
+    run = request.POST.get('run','')
+    contrasenia1 = request.POST.get('contrasenia','')
+    contrasenia2 = request.POST.get('contrasenia2','')  
+
+    if contrasenia1 == contrasenia2 :
+        postulante = Postulante.objects.get(run=run)
+        postulante.contrasenia = contrasenia1
+        postulante.save()
+        return render(request, 'login.html',{'contrasenia':'La contraseña fue cambiada correctamente.'})
+    else:
+        return render(request, 'recuperar.html',{'contrasenia':'Las contraseñas no coinciden.'})
+    
 
 def eliminar_perro(request,id):
     perro = Perro.objects.get(pk = id)
@@ -95,12 +112,10 @@ def login_iniciar(request):
         request.session['id'] = postulante[0].id
         return redirect("index")
     else:
-        return redirect("login")
+        return redirect("login",{'mensaje':'Las credenciales son incorrectas.'})
 
-@login_required(login_url='login')
 def cerrar_session(request):
     del request.session['usuario']
-    logout(request)
     return redirect('index')
 
 
