@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     {% load static %}
+    {% load socialaccount %}
         <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" type="text/css" >
 
     <!-- Custom styles for this template -->
@@ -24,13 +25,15 @@
             {% csrf_token %}
             <h1 class="h3 mb-3 font-weight-normal text-center">Iniciar Sesión</h1>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="inputEmail">Run</label>
                         <input type="text" name="run" class="form-control" placeholder="Run" required autofocus>
                     </div>
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="inputPassword">Contraseña</label>
                         <input type="password" name="contrasenia" class="form-control" placeholder="Contraseña" required>
@@ -38,12 +41,19 @@
                 </div>
             </div>        
           
-          <a href="/login/recuperar" class="text-center">Recuperar Contraseña</a>
-          <div class="checkbox mb-3">
-          
-          </div>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesión</button>
-          <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
+            <a href="/login/recuperar" class="text-center">Recuperar Contraseña</a>
+            <div class="checkbox mb-3">
+            
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesión</button>
+            {% if user.is_authenticated %}
+                <p>Welcome {{ user.username }} !!!</p>
+                {% else %}
+                <a class="btn btn-lg btn-primary btn-block" href="{% provider_login_url 'github' %}">Iniciar con Github</a>
+                <a class="btn btn-lg btn-primary btn-block" href="{% provider_login_url 'facebook' %}">Login with Facebook</a>
+            {% endif %}
+            
+            <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
         </form>
         <p class="text-center">{{contrasenia}}</p>
       </div>

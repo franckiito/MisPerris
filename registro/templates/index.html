@@ -25,28 +25,7 @@
                   
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        {% if usuario is not null %} 
-                            {% if request.user.is_superuser %}
-                                <li class="nav-item">
-                                    <a class="nav-link btn btn-navbar" href="#">Inicio <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link btn btn-navbar" href="#formularioPerro">Mantenedor perros</a>
-                                </li>
-                                <li class="nav-item">
-                                   <a class="nav-link btn btn-navbar" href="#postulantess">Postulantes</a>
-                                </li>
-                            {% else %}
-                                <li class="nav-item">
-                                    <a class="nav-link btn btn-navbar" href="#">Inicio <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link btn btn-navbar" href="#disponibles">Disponible</a>
-                                </li>
-                            
-                            {% endif %}
-                        {% else %}
-                            <li class="nav-item">
+                        <li class="nav-item">
                                 <a class="nav-link btn btn-navbar" href="#">Inicio <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
@@ -66,12 +45,31 @@
                                     <a class="dropdown-item" href="#rescatados">Rescatado</a>
                                 </div>
                             <li>
+                        {% if request.user.is_staff %}
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-navbar" href="#">Inicio <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-navbar" href="#formularioPerro">Mantenedor perros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-navbar" href="#postulantess">Postulantes</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-navbar" href="#">Inicio <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-navbar" href="#disponibles">Disponible</a>
+                            </li>
+                        
                         {% endif %}
+                        
                         
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
-                        {% if usuario is not null %}  
-                            <li class="nav-item">Bienvenido {{usuario}} <a class="btn btn-danger" href="{% url "cerrar_session" %}">Cerrar Sesión</a> </li>
+                        {% if user.is_authenticated %}  
+                            <li class="nav-item">Bienvenido {{ user.username }} <a class="btn btn-danger" href="{% url "cerrar_session" %}">Cerrar Sesión</a> </li>
                             {% else %}
                             <a class="btn btn-success" href="{% url "login"%}" >Iniciar Sesión</a>
                             <a class="btn btn-info" href="#formulario" id="mostrar">Registrarse</a>
@@ -97,6 +95,7 @@
                                         <div class="carousel-caption">
                                             
                                             <p>"{{p.descripcion}}"</p>
+                                            
                                             
                                         </div>
                                     </div>

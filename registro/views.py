@@ -5,6 +5,8 @@ from .models import Perro
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 
+from django.contrib.auth import logout as auth_logout
+
 #importar user
 #from django.contrib.auth.models import User
 #sistema de autenticación 
@@ -18,6 +20,9 @@ def index(request):
     usuario = request.session.get('usuario',None)
     return render(request,'index.html',{'n':1,'i':2,'postulantes':Postulante.objects.all(),'usuario':usuario,'perros':Perro.objects.all()})
 
+def cargar(request):
+    return redirect('index')
+
 def crear(request):
     run = request.POST.get('run','')
     nombre = request.POST.get('nombre','')
@@ -29,8 +34,8 @@ def crear(request):
     vivienda = request.POST.get('tipoVivienda','')
     contrasenia = request.POST.get('contrasenia','')
     
-    postulante = Postulante.objects.get(run=run)
-    if postulante is None:
+    postulante = Postulante.objects.filter(run=run)
+    if len(postulante) == 0:  
         postulante = Postulante(run=run, nombre=nombre, fecha=fecha, correo=correo, telefono=telefono, region=region, comuna=comuna, vivienda=vivienda, contrasenia= contrasenia)
         postulante.save()
         return render(request,'index.html',{'mensaje':'El postulante fue registrado correctamente.'})
@@ -106,16 +111,17 @@ def login_iniciar(request):
     #user = authenticate(request,username=usuario, password=contrasenia)
     postulante = Postulante.objects.filter(run=run).filter(contrasenia=contrasenia)
 
-    if postulante is not None:
+    if len(postulante) > 0:
         #auth_login(request, user)
         request.session['usuario'] = postulante[0].nombre
         request.session['id'] = postulante[0].id
-        return redirect("index")
+        return redirect('index')
     else:
-        return redirect("login",{'mensaje':'Las credenciales son incorrectas.'})
+        return redirect('login',{'mensaje':'Las credenciales son incorrectas.'})
 
 def cerrar_session(request):
-    del request.session['usuario']
+    auth_logout(request)
+
     return redirect('index')
 
 

@@ -28,3 +28,4 @@ class Perro(models.Model):
 
     def __str__(self):
         return "PERRO"
+
