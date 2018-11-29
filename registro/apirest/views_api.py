@@ -8,12 +8,12 @@ class PostulanteViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Postulante.objects.all().order_by('-date_joined')
+    queryset = Postulante.objects.all()
     serializer_class = PostulanteSerializer
 
 class PerroViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Perro.objects.all().order_by('-date_joined')
+    queryset = Perro.objects.all()
     serializer_class = PerroSerializer
