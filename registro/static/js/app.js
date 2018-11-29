@@ -1,4 +1,14 @@
-console.log("Hola Mundo")
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/serviceworker.js')
+        .then(function() {
+            console.log('ServiceWorker registrado!');
+        })
+        .catch(function(err) {
+            console.log('ServiceWorker Error al registrar :(', err);
+        });
+    });
+  }
 
 $.validator.addMethod("minDate", function(value, element) {
     var curDate = new Date("2000-12-31");

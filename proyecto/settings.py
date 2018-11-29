@@ -15,6 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#PWA
+PWA_SERVICE_WORKER_PATH = os.path.join (BASE_DIR, 'registro/static/js', 'serviceworker.js')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
@@ -52,6 +54,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'registro',
     'rest_framework',
+    'pwa',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

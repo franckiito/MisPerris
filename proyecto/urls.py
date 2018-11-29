@@ -19,8 +19,11 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('registro.urls')),
+    path(r'',include('registro.urls')),
 
     #Api Social Login
     path('accounts/', include('allauth.urls')),
+    
+    #PWA
+    path('', include('pwa.urls')),
 ]

@@ -109,19 +109,23 @@ def login_iniciar(request):
     run = request.POST.get('run','')
     contrasenia = request.POST.get('contrasenia','')
     #user = authenticate(request,username=usuario, password=contrasenia)
-    postulante = Postulante.objects.filter(run=run).filter(contrasenia=contrasenia)
-
+    postulante = Postulante.objects.filter(run=run)
+    
     if len(postulante) > 0:
-        #auth_login(request, user)
-        request.session['usuario'] = postulante[0].nombre
-        request.session['id'] = postulante[0].id
-        return redirect('index')
+        if postulante[0].contrasenia == contrasenia :
+            #auth_login(request, user)
+            request.session['usuario'] = postulante[0].nombre
+            request.session['id'] = postulante[0].id
+            return redirect('index')
+        else:
+            return redirect('login',{'mensaje':'Las credenciales son incorrectas.'})
     else:
-        return redirect('login',{'mensaje':'Las credenciales son incorrectas.'})
+        return redirect('login',{'mensaje':'No existe el Usuario.'})
 
 def cerrar_session(request):
     auth_logout(request)
 
     return redirect('index')
 
-
+def base_layout(request):
+	return render(request,'index.html')

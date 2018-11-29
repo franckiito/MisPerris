@@ -6,7 +6,7 @@ from rest_framework import serializers
 class PostulanteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Postulante
-        fields = ('url', 'run', 'nombre', 'correo')
+        fields = ('url', 'run', 'nombre', 'correo', 'fecha')
 
 class PerroSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
