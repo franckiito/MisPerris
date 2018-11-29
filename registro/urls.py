@@ -8,6 +8,8 @@ from django.conf.urls import url, include
 from registro.apirest import views_api
 from rest_framework import routers
 
+from django.views.generic import TemplateView
+
 #Routers
 router = routers.DefaultRouter()
 router.register(r'postulantes', views_api.PostulanteViewSet)
@@ -29,5 +31,7 @@ urlpatterns = [
     
     path('lista/', include(router.urls)),
     path('accounts/profile/', views.cargar, name= "cargar"),
+
+    url(r'^manifest.json', (TemplateView.as_view(template_name="manifest.json", content_type='application/json', )), name='manifest.json'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

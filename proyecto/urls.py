@@ -26,4 +26,6 @@ urlpatterns = [
     
     #PWA
     path('', include('pwa.urls')),
+
+    
 ]

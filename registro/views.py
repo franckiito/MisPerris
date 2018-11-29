@@ -129,3 +129,6 @@ def cerrar_session(request):
 
 def base_layout(request):
 	return render(request,'index.html')
+
+def manifest(request):
+    return render(request, 'manifest.json',)
